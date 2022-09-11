@@ -11,12 +11,8 @@ type managerCommand interface {
 }
 
 type log interface {
-	Debug(messageFormat string, v ...interface{})
 	Info(messageFormat string, v ...interface{})
-	Error(message string, err ...error)
 	Fatal(message string, err ...error)
-	InfoWithFields(message string, fields map[string]interface{}, err ...error)
-	AddFieldToContext(message string, field interface{})
 }
 
 func Start(mgr managerCommand, log log) error {
