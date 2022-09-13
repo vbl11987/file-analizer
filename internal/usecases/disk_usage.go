@@ -2,10 +2,12 @@ package usecases
 
 import (
 	"errors"
+	"file-analizer/internal/models"
 	"file-analizer/pkg/generator"
 	"file-analizer/pkg/logger"
 	"file-analizer/pkg/validator"
 	"fmt"
+	"path/filepath"
 )
 
 type loggerFactory interface {
@@ -34,7 +36,20 @@ func (manager *diskUsage) Execute(path string) error {
 	if err != nil {
 		log.Fatal("failed to geberate the list of files", err)
 	}
-	fmt.Println(listFiles)
+	// Creating a directoy object to generate the list of files
+	directory := models.NewDirContent()
+	// Looping through the list of files and get the information
+	for i := range listFiles {
+		directory.LoadFile(filepath.Join(path, listFiles[i]))
+	}
+
+	//generating the output json
+	result, err := directory.GenerateDirOutput()
+	if err != nil {
+		return fmt.Errorf("failed to generate the output json: %v", err)
+	}
+
+	fmt.Println(string(result))
 
 	return nil
 }
