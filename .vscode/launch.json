@@ -10,7 +10,7 @@
             "request": "launch",
             "mode": "auto",
             "program": "${fileDirname}",
-            "args": ["usage", "/Users/sheila/Documents/workspaces/file-analizer"],
+            "args": ["/Users/sheila/Documents/workspaces/file-analizer"],
         }
     ]
 }
